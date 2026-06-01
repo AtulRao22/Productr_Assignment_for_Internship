@@ -1,17 +1,15 @@
 .login-container {
   min-height: 100vh;
-  min-width: 1440px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f7f8fa;
 }
 
 .login-left {
+  flex: 0.42;
   position: relative;
   top: 0;
   left: 32px;
-  width: 690px;
   height: 95vh;
   border: 1px solid #ddd;
 
@@ -52,10 +50,10 @@
 .small-card {
   position: absolute;  
   top: 100px;
-  left: 190px;
+  left: 160px;
   width: 312px; 
   height: 480px; 
-  border: .5px solid #ddd;
+  border: 1px solid #ddd;
   border-radius: 48px;
   border-image-source: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(153, 153, 153, 0.03) 100%);
   box-shadow: 0px 8px 34px 0px rgba(0, 0, 0, 0.32); 
@@ -93,10 +91,12 @@
 
 
 .login-right {
-  width: 690px;
+  flex: 0.54;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
+  top: -50px;
 }
 
 .login-form {
@@ -136,7 +136,7 @@
 }
 
 .signup-box {
-  margin-top: 120px;
+  margin-top: 100px;
   text-align: center;
   border: 1px solid rgba(212, 212, 212, 1);
   border-radius: 8px;
