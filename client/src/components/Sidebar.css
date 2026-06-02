@@ -1,0 +1,126 @@
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+    background-color: #121826;
+    color: #94a3b8;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-right: 1px solid #1e293b;
+    box-sizing: border-box;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    padding-left: 8px;
+}
+
+.sidebar-logo img {
+    height: 20px;
+    width: auto;
+}
+
+/* Search input with icon */
+.sidebar-search-container {
+    position: relative;
+    width: 100%;
+}
+
+.sidebar-search-container::before {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #64748b;
+    pointer-events: none;
+}
+
+.sidebar-search {
+    width: 100%;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 4px;
+    color: white;
+    padding: 6px 10px 6px 32px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.sidebar-search:focus {
+    border-color: #3b82f6;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.sidebar nav a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.sidebar nav a:hover .nav-icon img {
+    opacity: 0.85;
+}
+
+.sidebar nav a.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.08);
+    font-weight: 600;
+}
+
+.sidebar nav a.active .nav-icon img {
+    opacity: 1;
+}
+
+.nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+}
+
+.nav-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+}
