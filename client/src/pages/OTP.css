@@ -1,0 +1,72 @@
+.otp-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.otp-input {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid rgba(212, 212, 212, 1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: rgba(17, 22, 82, 1);
+}
+
+
+.resend {
+    display: flex;
+    gap: 6px !important;
+    margin-left: 20px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: rgba(152, 162, 179, 1) !important;
+}
+
+.resend span {
+    font-size: 16px !important;
+    cursor: pointer;
+}
+
+.resend span {
+    color: rgba(17, 22, 82, 1);
+    font-weight: 600 !important;
+    cursor: not-allowed;
+}
+
+.resend span.resend-active {
+    color: rgba(17, 22, 82, 1);
+    font-weight: 600 !important;
+    cursor: pointer;
+}
+
+.resend span.resend-active:hover {
+    color: rgba(7, 16, 116, 1);
+    text-decoration: underline;
+}
+
+.otp-input.error {
+    border-color: rgba(220, 53, 69, 1) !important;
+    background-color: rgba(253, 237, 237, 0.3) !important;
+}
+
+.otp-input.error:focus {
+    border-color: rgba(220, 53, 69, 1) !important;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2) !important;
+}
+
+.otp-error-text {
+    color: rgba(220, 53, 69, 1) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    margin-top: -10px !important;
+    margin-bottom: 15px !important;
+    text-align: left !important;
+    padding-left: 2px !important;
+}
