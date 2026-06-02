@@ -71,7 +71,6 @@ body,
     border-radius: 2px;
 }
 
-/* Loading & Empty State styles in Figma */
 .loading-text {
     color: #64748b;
     font-size: 15px;
@@ -135,4 +134,37 @@ body,
 
 .btn-add-product:active {
     transform: scale(0.98);
+}
+
+.products-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.products-header-title {
+    font-size: 20px;
+    font-weight: 550;
+    color: rgba(52, 64, 84, 1);
+    margin: 0;
+}
+
+.btn-header-add {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.2s;
+}
+
+.btn-header-add:hover {
+    color: #071074;
 }

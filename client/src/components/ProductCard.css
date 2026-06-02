@@ -1,12 +1,12 @@
 .product-card {
     background-color: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 16px;
+    border: 1px solid rgba(220, 223, 227, 1);
+    border-radius: 12px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    gap: 12px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -17,16 +17,16 @@
 
 /* Image Container */
 .product-image-container {
-    background-color: #f8fafc;
-    border-radius: 12px;
-    padding: 12px;
+    background-color: #fafbfc;
+    border-radius: 8px;
+    padding: 10px;
     height: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    border: 1px solid #f1f5f9;
+    border: 1px solid rgba(220, 223, 227, 0.6);
 }
 
 .product-card-image {
@@ -47,42 +47,46 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #cbd5e1;
+    background-color: rgba(220, 223, 227, 1);
 }
 
 .dot.active {
-    background-color: #64748b;
+    background-color: #FF4B4B;
+    /* Figma Active Carousel Red color */
 }
 
 /* Product Info */
 .product-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 4px 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(52, 64, 84, 1);
+    margin: 4px 0 4px 0;
 }
 
 .product-details-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .product-details-row {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 11px;
+    line-height: 1.4;
 }
 
 .product-details-label {
-    color: #64748b;
+    color: rgba(152, 162, 179, 1);
+    /* Figma Label color */
     font-weight: 400;
 }
 
 .product-details-value {
-    color: #0f172a;
-    font-weight: 600;
+    color: rgba(52, 64, 84, 1);
+    /* Figma Value color */
+    font-weight: 500;
+    text-align: right;
 }
 
 /* Action Buttons */
@@ -96,10 +100,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 38px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 8px;
+    height: 32px;
+    /* Figma button height */
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     outline: none;
@@ -107,49 +112,49 @@
 }
 
 .btn-publish-toggle {
-    flex: 1.3;
+    flex: 1.4;
     border: none;
     color: white;
 }
 
-/* Green Unpublish Button */
+/* Bright Green Unpublish Button */
 .btn-publish-toggle.published {
-    background-color: #22c55e;
+    background: #32BA73;
 }
 
 .btn-publish-toggle.published:hover {
-    background-color: #16a34a;
+    background: #289a5e;
 }
 
-/* Blue Publish Button */
+/* Deep Blue Publish Button */
 .btn-publish-toggle.unpublished {
-    background-color: #071074;
+    background: #000FB4;
 }
 
 .btn-publish-toggle.unpublished:hover {
-    background-color: #050a4e;
+    background: #000b80;
 }
 
 .btn-card-edit {
     flex: 1;
     background-color: white;
-    border: 1px solid #cbd5e1;
-    color: #334155;
+    border: 1px solid rgba(220, 223, 227, 1);
+    color: rgba(52, 64, 84, 1);
 }
 
 .btn-card-edit:hover {
-    background-color: #f8fafc;
-    border-color: #94a3b8;
+    background-color: #fafbfc;
+    border-color: rgba(17, 22, 82, 0.4);
 }
 
 .btn-card-delete {
-    width: 38px;
+    width: 32px;
     background-color: white;
-    border: 1px solid #cbd5e1;
+    border: 1px solid rgba(220, 223, 227, 1);
     color: #ef4444;
 }
 
 .btn-card-delete:hover {
     background-color: #fef2f2;
-    border-color: #fca5a5;
+    border-color: #ef4444;
 }
