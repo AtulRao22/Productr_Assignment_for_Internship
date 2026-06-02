@@ -11,10 +11,8 @@ const sendOTP = async (req, res) => {
       });
     }
 
-    // Generate a random 6-digit OTP (e.g., between 100000 and 999999)
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Log the OTP to the console
     console.log(`Generated OTP for ${email || phone}: ${otp}`);
 
     let user = await User.findOne({
