@@ -33,6 +33,7 @@ const sendOTP = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "OTP sent successfully",
+      otp,
     });
   } catch (error) {
     res.status(500).json({
@@ -65,7 +66,7 @@ const verifyOTP = async (req, res) => {
     }
 
     user.isVerified = true;
-    user.otp = ""; // Clear OTP after successful verification to prevent reuse
+    user.otp = "";
     await user.save();
 
     res.status(200).json({
