@@ -240,20 +240,20 @@
 @media (max-width: 520px) {
   .add-product-modal {
     width: 95% !important;
-    max-height: 95vh !important;
+    max-height: 82vh !important;
     border-radius: 8px !important;
   }
 
   .modal-header {
-    padding: 12px 16px !important;
+    padding: 10px 16px !important;
   }
 
   .modal-body {
-    padding: 16px 16px !important;
-    gap: 12px !important;
+    padding: 12px 16px !important;
+    gap: 10px !important;
   }
 
   .modal-footer {
-    padding: 12px 16px !important;
+    padding: 10px 16px !important;
   }
 }
