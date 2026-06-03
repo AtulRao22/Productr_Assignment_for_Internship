@@ -207,9 +207,8 @@
 
   .login-left p {
     font-size: 20px !important;
-    top: 5px !important;
+    /* top: 5px !important; */
     left: 15px !important;
-    color: white !important;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -237,7 +236,6 @@
     top: 70px !important;
     left: 20px !important;
     font-size: 0.95rem !important;
-    color: white !important;
     width: auto !important;
     height: auto !important;
     margin-left: 0 !important;
@@ -248,7 +246,6 @@
     top: 100px !important;
     left: 20px !important;
     font-size: 0.95rem !important;
-    color: white !important;
     width: auto !important;
     height: auto !important;
     padding: 0 !important;
@@ -282,41 +279,62 @@
   }
 
   .login-left {
-    height: 300px !important;
+    height: 280px !important;
   }
 
   .small-card {
-    top: 80px !important;
+    top: 70px !important;
     width: 240px !important;
-    height: 130px !important;
+    height: 140px !important;
   }
 
   .small-card p {
     top: 50px !important;
-    font-size: 0.85rem !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
   }
 
   .small-card span {
     top: 75px !important;
-    font-size: 0.85rem !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+  }
+
+  .login-right {
+    flex: 0.6 !important;
   }
 
   .login-form {
     max-width: 100% !important;
     padding: 0 5px;
+    margin-top: -50px !important;
   }
 
   .login-form p {
-    font-size: 26px !important;
-    margin-bottom: 20px !important;
+    font-size: 22px;
+    margin-bottom: 15px !important;
   }
 
   .signup-box {
     margin-top: 30px !important;
   }
 
+  .signup-box p {
+    margin: 0;
+    font-size: 14px !important;
+    font-weight: 500;
+    padding: 10px;
+  }
+
+  .signup-box a {
+    position: relative !important;
+    top: -18px !important;
+  }
+
   .resend {
+    font-size: 14px !important;
     margin-left: 0 !important;
     justify-content: center;
   }
+
 }

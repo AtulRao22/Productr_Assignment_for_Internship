@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import ProfileIcon from "../assets/people.png";
+import vector from "../assets/Vector.svg";
 
 function Navbar({ title = "Home" }) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -26,6 +27,11 @@ function Navbar({ title = "Home" }) {
 
   return (
     <div className="navbar">
+      <div className="navbar-mobile-brand">
+        <span>Productr</span>
+        <img src={vector} alt="Logo" className="navbar-logo-img" />
+      </div>
+
       <div className="navbar-title">
         <span className="navbar-title-icon">
           {title === "Home" ? (
@@ -35,6 +41,19 @@ function Navbar({ title = "Home" }) {
           )}
         </span>
         <span>{title}</span>
+      </div>
+
+      <div className="navbar-search-container">
+        <img
+          src="/Search.svg"
+          alt="Search"
+          className="navbar-search-icon"
+        />
+        <input
+          type="text"
+          placeholder="Search"
+          className="navbar-search"
+        />
       </div>
 
       <div
