@@ -18,11 +18,19 @@ function EditProduct() {
       try {
         const res = await API.get("/products");
         setProducts(res.data.data);
+        sessionStorage.setItem("cachedProducts", JSON.stringify(res.data.data));
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-    fetchProducts();
+
+    const cached = sessionStorage.getItem("cachedProducts");
+    if (cached) {
+      setProducts(JSON.parse(cached));
+      fetchProducts();
+    } else {
+      fetchProducts();
+    }
   }, []);
 
   const [productName, setProductName] = useState("");
@@ -39,9 +47,32 @@ function EditProduct() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cachedProduct = null;
+    const cached = sessionStorage.getItem("cachedProducts");
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      cachedProduct = parsed.find(p => p._id === id);
+    }
+
+    if (cachedProduct) {
+      setProductName(cachedProduct.productName || "");
+      setProductType(cachedProduct.productType || "");
+      setQuantityStock(cachedProduct.quantityStock?.toString() || "");
+      setMrp(cachedProduct.mrp?.toString() || "");
+      setSellingPrice(cachedProduct.sellingPrice?.toString() || "");
+      setBrandName(cachedProduct.brandName || "");
+      setExchangeEligible(cachedProduct.exchangeEligible ? "Yes" : "No");
+      if (cachedProduct.productImage) {
+        setImages([cachedProduct.productImage]);
+      }
+      setLoading(false);
+    }
+
     const fetchProduct = async () => {
       try {
-        setLoading(true);
+        if (!cachedProduct) {
+          setLoading(true);
+        }
         const res = await API.get(`/products/${id}`);
         const product = res.data.data;
 
@@ -58,8 +89,10 @@ function EditProduct() {
           setImages([product.productImage]);
         }
       } catch (error) {
-        alert("Failed to load product details");
-        navigate("/home");
+        if (!cachedProduct) {
+          alert("Failed to load product details");
+          navigate("/products");
+        }
       } finally {
         setLoading(false);
       }
@@ -120,7 +153,7 @@ function EditProduct() {
   };
 
   const handleClose = () => {
-    navigate("/home");
+    navigate("/products");
   };
 
   const handleUpdate = async () => {
@@ -170,6 +203,9 @@ function EditProduct() {
 
       await API.put(`/products/${id}`, payload);
       sessionStorage.setItem("toastMessage", "Product updated Successfully");
+      sessionStorage.removeItem("cachedProducts");
+      sessionStorage.removeItem("cachedProducts_published");
+      sessionStorage.removeItem("cachedProducts_unpublished");
       navigate("/products");
     } catch (error) {
       alert(error.response?.data?.message || "Failed to update product");

@@ -25,15 +25,16 @@ function Home() {
     }
   }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (showLoading = true) => {
     try {
-      setLoading(true);
+      if (showLoading) setLoading(true);
       const res = await API.get(`/products?status=${activeTab}`);
       setProducts(res.data.data);
+      sessionStorage.setItem(`cachedProducts_${activeTab}`, JSON.stringify(res.data.data));
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
@@ -42,7 +43,10 @@ function Home() {
       const newStatus = currentStatus === "published" ? "unpublished" : "published";
       await API.put(`/products/${id}`, { status: newStatus });
       setToast({ message: "Product updated Successfully" });
-      fetchProducts();
+      sessionStorage.removeItem("cachedProducts");
+      sessionStorage.removeItem("cachedProducts_published");
+      sessionStorage.removeItem("cachedProducts_unpublished");
+      fetchProducts(false);
     } catch (error) {
       console.error("Failed to update status:", error);
     }
@@ -58,14 +62,24 @@ function Home() {
       await API.delete(`/products/${productToDelete.id}`);
       setToast({ message: "Product deleted Successfully" });
       setProductToDelete(null);
-      fetchProducts();
+      sessionStorage.removeItem("cachedProducts");
+      sessionStorage.removeItem("cachedProducts_published");
+      sessionStorage.removeItem("cachedProducts_unpublished");
+      fetchProducts(false);
     } catch (error) {
       console.error("Failed to delete product:", error);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    const cached = sessionStorage.getItem(`cachedProducts_${activeTab}`);
+    if (cached) {
+      setProducts(JSON.parse(cached));
+      setLoading(false);
+      fetchProducts(false);
+    } else {
+      fetchProducts(true);
+    }
   }, [activeTab]);
 
   return (
@@ -86,7 +100,7 @@ function Home() {
         <Navbar title="Home" />
 
         <div className="products-main">
-          {}
+          { }
           <div className="tabs-container">
             <button
               onClick={() => setActiveTab("published")}
@@ -103,7 +117,7 @@ function Home() {
             </button>
           </div>
 
-          {}
+          { }
           {loading && <h3 className="loading-text">Loading products...</h3>}
 
           {!loading && products.length === 0 && (

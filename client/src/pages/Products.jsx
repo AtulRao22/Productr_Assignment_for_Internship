@@ -15,16 +15,17 @@ function Products() {
   const [toast, setToast] = useState(null);
   const [productToDelete, setProductToDelete] = useState(null);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (showLoading = true) => {
     try {
-      setLoading(true);
-      
+      if (showLoading) setLoading(true);
+
       const res = await API.get("/products");
       setProducts(res.data.data);
+      sessionStorage.setItem("cachedProducts", JSON.stringify(res.data.data));
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
-      setLoading(false);
+      if (showLoading) setLoading(false);
     }
   };
 
@@ -33,7 +34,10 @@ function Products() {
       const newStatus = currentStatus === "published" ? "unpublished" : "published";
       await API.put(`/products/${id}`, { status: newStatus });
       setToast({ message: "Product updated Successfully" });
-      fetchProducts();
+      sessionStorage.removeItem("cachedProducts");
+      sessionStorage.removeItem("cachedProducts_published");
+      sessionStorage.removeItem("cachedProducts_unpublished");
+      fetchProducts(false);
     } catch (error) {
       console.error("Failed to update status:", error);
     }
@@ -49,14 +53,24 @@ function Products() {
       await API.delete(`/products/${productToDelete.id}`);
       setToast({ message: "Product deleted Successfully" });
       setProductToDelete(null);
-      fetchProducts();
+      sessionStorage.removeItem("cachedProducts");
+      sessionStorage.removeItem("cachedProducts_published");
+      sessionStorage.removeItem("cachedProducts_unpublished");
+      fetchProducts(false);
     } catch (error) {
       console.error("Failed to delete product:", error);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    const cached = sessionStorage.getItem("cachedProducts");
+    if (cached) {
+      setProducts(JSON.parse(cached));
+      setLoading(false);
+      fetchProducts(false);
+    } else {
+      fetchProducts(true);
+    }
     const msg = sessionStorage.getItem("toastMessage");
     if (msg) {
       setToast({ message: msg });
@@ -98,13 +112,13 @@ function Products() {
                 </div>
 
                 <h2>Feels a little empty over here...</h2>
-                
+
                 <p>
                   You can create products without connecting store{"\n"}
                   you can add products to store anytime
                 </p>
 
-                <button 
+                <button
                   className="btn-add-product"
                   onClick={() => navigate("/add-product")}
                 >
@@ -118,7 +132,7 @@ function Products() {
             <>
               <div className="products-header-row">
                 <h1 className="products-header-title">Products</h1>
-                <button 
+                <button
                   className="btn-header-add"
                   onClick={() => navigate("/add-product")}
                 >

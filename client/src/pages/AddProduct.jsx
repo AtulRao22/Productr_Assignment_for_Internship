@@ -17,11 +17,19 @@ function AddProduct() {
       try {
         const res = await API.get("/products");
         setProducts(res.data.data);
+        sessionStorage.setItem("cachedProducts", JSON.stringify(res.data.data));
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-    fetchProducts();
+
+    const cached = sessionStorage.getItem("cachedProducts");
+    if (cached) {
+      setProducts(JSON.parse(cached));
+      fetchProducts();
+    } else {
+      fetchProducts();
+    }
   }, []);
 
   const [productName, setProductName] = useState("");
