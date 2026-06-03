@@ -1,19 +1,24 @@
 const Product = require("../models/Product");
 
+let productsCache = null;
+
 const getProducts = async (req, res) => {
   try {
-    const filter = {};
+    const { status } = req.query;
 
-    if (req.query.status) {
-      filter.status = req.query.status;
+    if (!productsCache) {
+      productsCache = await Product.find({}).select("-images");
     }
 
-    const products = await Product.find(filter);
+    let filteredProducts = productsCache;
+    if (status) {
+      filteredProducts = productsCache.filter(p => p.status === status);
+    }
 
     res.status(200).json({
       success: true,
-      count: products.length,
-      data: products,
+      count: filteredProducts.length,
+      data: filteredProducts,
     });
   } catch (error) {
     res.status(500).json({
@@ -33,11 +38,12 @@ const createProduct = async (req, res) => {
       sellingPrice,
       brandName,
       productImage,
+      images,
+      totalImages,
       exchangeEligible,
       status,
     } = req.body;
 
-    // Validate required fields
     if (
       !productName ||
       !productType ||
@@ -67,9 +73,13 @@ const createProduct = async (req, res) => {
       sellingPrice,
       brandName,
       productImage,
+      images: images || (productImage ? [productImage] : []),
+      totalImages: totalImages !== undefined ? totalImages : (images ? images.length : (productImage ? 1 : 0)),
       exchangeEligible,
       status,
     });
+
+    productsCache = null;
 
     res.status(201).json({
       success: true,
@@ -125,6 +135,8 @@ const updateProduct = async (req, res) => {
       });
     }
 
+    productsCache = null;
+
     res.status(200).json({
       success: true,
       message: "Product updated successfully",
@@ -139,7 +151,6 @@ const updateProduct = async (req, res) => {
   }
 };
 
-
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
@@ -151,8 +162,10 @@ const deleteProduct = async (req, res) => {
       });
     }
 
+    productsCache = null;
+
     res.status(200).json({
-        success: true,
+      success: true,
       message: "Product deleted successfully",
     });
   } catch (error) {
@@ -167,6 +180,6 @@ module.exports = {
   getProducts,
   createProduct,
   getProductById,
-    updateProduct,
-    deleteProduct,
+  updateProduct,
+  deleteProduct,
 };

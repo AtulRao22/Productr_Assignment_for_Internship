@@ -49,6 +49,16 @@ const productSchema = new mongoose.Schema(
       default: "",
     },
 
+    images: {
+      type: [String],
+      default: [],
+    },
+
+    totalImages: {
+      type: Number,
+      default: 0,
+    },
+
     exchangeEligible: {
       type: Boolean,
       required: true,
