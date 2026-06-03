@@ -32,6 +32,13 @@ function AddProduct() {
     }
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
 
