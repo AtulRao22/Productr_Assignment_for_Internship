@@ -179,7 +179,6 @@
   text-decoration: none;
 }
 
-/* Responsive Media Queries */
 @media (max-width: 1300px) {
   .small-card {
     left: 50% !important;
@@ -189,13 +188,70 @@
 
 @media (max-width: 991px) {
   .login-container {
-    padding: 20px;
+    padding: 10px;
     flex-direction: column;
     min-height: 100vh;
+    justify-content: flex-start;
   }
 
   .login-left {
-    display: none !important;
+    display: block !important;
+    width: 100%;
+    height: 250px;
+    left: 0 !important;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    flex: none !important;
+  }
+
+  .login-left p {
+    font-size: 20px !important;
+    top: 5px !important;
+    left: 15px !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .login-left img {
+    position: static !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .small-card {
+    top: 60px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 280px !important;
+    height: 160px !important;
+    border-radius: 16px !important;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .small-card p {
+    top: 70px !important;
+    left: 20px !important;
+    font-size: 0.95rem !important;
+    color: white !important;
+    width: auto !important;
+    height: auto !important;
+    margin-left: 0 !important;
+    padding: 0 !important;
+  }
+
+  .small-card span {
+    top: 100px !important;
+    left: 20px !important;
+    font-size: 0.95rem !important;
+    color: white !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
   }
 
   .login-right {
@@ -212,31 +268,51 @@
     top: 0 !important;
     width: 100% !important;
     max-width: 360px !important;
-    margin: 40px auto !important;
+    margin: 10px auto !important;
   }
 
   .signup-box {
-    margin-top: 80px !important;
+    margin-top: 40px !important;
   }
 }
 
 @media (max-width: 480px) {
   .login-container {
-    padding: 15px;
+    padding: 10px;
+  }
+
+  .login-left {
+    height: 300px !important;
+  }
+
+  .small-card {
+    top: 80px !important;
+    width: 240px !important;
+    height: 130px !important;
+  }
+
+  .small-card p {
+    top: 50px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .small-card span {
+    top: 75px !important;
+    font-size: 0.85rem !important;
   }
 
   .login-form {
     max-width: 100% !important;
-    padding: 0 10px;
+    padding: 0 5px;
   }
 
   .login-form p {
-    font-size: 20px !important;
+    font-size: 26px !important;
     margin-bottom: 20px !important;
   }
 
   .signup-box {
-    margin-top: 60px !important;
+    margin-top: 30px !important;
   }
 
   .resend {

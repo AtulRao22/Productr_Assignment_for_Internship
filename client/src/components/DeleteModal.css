@@ -124,3 +124,10 @@
 .btn-delete-confirm:active {
     transform: scale(0.98);
 }
+
+@media (max-width: 420px) {
+    .delete-modal-box {
+        width: 90% !important;
+        padding: 16px 20px !important;
+    }
+}

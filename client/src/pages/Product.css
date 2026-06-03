@@ -170,3 +170,32 @@ body,
 .btn-header-add:hover {
     color: #071074;
 }
+
+@media (max-width: 768px) {
+    .products-layout {
+        flex-direction: column;
+    }
+
+    .products-content {
+        padding-bottom: 60px;
+    }
+
+    .products-main {
+        padding: 12px 16px 0 16px !important;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+        gap: 24px !important;
+        justify-items: center;
+    }
+
+    .tabs-container {
+        margin-bottom: 20px !important;
+        gap: 16px !important;
+    }
+
+    .products-header-row {
+        margin-bottom: 16px !important;
+    }
+}
