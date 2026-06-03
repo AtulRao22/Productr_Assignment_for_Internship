@@ -25,6 +25,26 @@ function AddProduct() {
 
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const [exchangeDropdownOpen, setExchangeDropdownOpen] = useState(false);
+  const exchangeDropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+      if (exchangeDropdownRef.current && !exchangeDropdownRef.current.contains(event.target)) {
+        setExchangeDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const [quantityStock, setQuantityStock] = useState("");
   const [mrp, setMrp] = useState("");
   const [sellingPrice, setSellingPrice] = useState("");
@@ -216,23 +236,48 @@ function AddProduct() {
             </div>
 
             { }
-            <div className="form-group">
+            <div className="form-group" ref={dropdownRef}>
               <label>Product Type</label>
-              <select
-                value={productType}
-                onChange={(e) => {
-                  setProductType(e.target.value);
-                  setErrors((prev) => ({ ...prev, productType: "" }));
-                }}
-                className={`form-input ${errors.productType ? "error-border" : ""}`}
-              >
-                <option className="select-option" value="">Select product type</option>
-                <option className="select-option" value="Foods">Foods</option>
-                <option className="select-option" value="Electronics">Electronics</option>
-                <option className="select-option" value="Clothes">Clothes</option>
-                <option className="select-option" value="Beauty Products">Beauty Products</option>
-                <option className="select-option" value="Others">Others</option>
-              </select>
+              <div className="custom-select-container">
+                <div
+                  className={`custom-select-trigger ${dropdownOpen ? "open" : ""} ${errors.productType ? "error-border" : ""}`}
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  <span className={productType ? "selected-value" : "placeholder"}>
+                    {productType || "Select product type"}
+                  </span>
+                  <svg
+                    className={`custom-select-caret ${dropdownOpen ? "open" : ""}`}
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#64748b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                {dropdownOpen && (
+                  <div className="custom-select-options">
+                    {["Foods", "Electronics", "Clothes", "Beauty Products", "Others"].map((option) => (
+                      <div
+                        key={option}
+                        className={`custom-select-option ${productType === option ? "selected" : ""}`}
+                        onClick={() => {
+                          setProductType(option);
+                          setDropdownOpen(false);
+                          setErrors((prev) => ({ ...prev, productType: "" }));
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               {errors.productType && <p className="error-text">{errors.productType}</p>}
             </div>
 
@@ -349,16 +394,47 @@ function AddProduct() {
             </div>
 
             { }
-            <div className="form-group">
+            <div className="form-group" ref={exchangeDropdownRef}>
               <label>Exchange or return eligibility</label>
-              <select
-                value={exchangeEligible}
-                onChange={(e) => setExchangeEligible(e.target.value)}
-                className="form-input"
-              >
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-              </select>
+              <div className="custom-select-container">
+                <div
+                  className={`custom-select-trigger ${exchangeDropdownOpen ? "open" : ""}`}
+                  onClick={() => setExchangeDropdownOpen(!exchangeDropdownOpen)}
+                >
+                  <span className="selected-value">
+                    {exchangeEligible}
+                  </span>
+                  <svg
+                    className={`custom-select-caret ${exchangeDropdownOpen ? "open" : ""}`}
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#64748b"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                {exchangeDropdownOpen && (
+                  <div className="custom-select-options">
+                    {["Yes", "No"].map((option) => (
+                      <div
+                        key={option}
+                        className={`custom-select-option ${exchangeEligible === option ? "selected" : ""}`}
+                        onClick={() => {
+                          setExchangeEligible(option);
+                          setExchangeDropdownOpen(false);
+                        }}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

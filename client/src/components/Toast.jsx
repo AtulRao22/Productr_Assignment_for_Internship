@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "./Toast.css";
 
-function Toast({ message, onClose, duration = 3000 }) {
+function Toast({ message, onClose, duration = 4000 }) {
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      onClose();
+      onCloseRef.current();
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [onClose, duration]);
+  }, [duration]);
 
   return (
     <div className="toast-notification-container">

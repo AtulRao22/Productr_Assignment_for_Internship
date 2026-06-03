@@ -46,14 +46,15 @@
 }
 
 .toast-close-btn {
-    background: none;
-    border: none;
+    background: none !important;
+    border: none !important;
+    width: auto !important;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 4px !important;
+    border-radius: 4px !important;
     transition: background-color 0.2s;
 }
 

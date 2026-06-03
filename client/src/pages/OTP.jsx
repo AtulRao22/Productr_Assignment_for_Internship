@@ -7,7 +7,7 @@ import "./OTP.css";
 
 function OTP() {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [timer, setTimer] = useState(50);
+  const [timer, setTimer] = useState(30);
   const [resending, setResending] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [currentOtp, setCurrentOtp] = useState("");
@@ -18,7 +18,6 @@ function OTP() {
     const savedOtp = sessionStorage.getItem("currentOtp");
     if (savedOtp) {
       setCurrentOtp(savedOtp);
-      console.log("%c🤫 DETECTIVE MODE ACTIVE: OTP is " + savedOtp + " (You found it! Or did the alert spoil it?)", "color: #111652; font-size: 16px; font-weight: bold; background: #E0E4FC; padding: 10px; border-radius: 5px;");
     }
   }, []);
 
@@ -83,8 +82,8 @@ function OTP() {
         setCurrentOtp(response.data.otp);
       }
 
-      setToast({ message: "OTP resent successfully!" });
-      setTimer(50);
+      setToast({ message: "OTP resent Successfully" });
+      setTimer(30);
       setHasError(false);
     } catch (error) {
       setToast({
@@ -137,12 +136,12 @@ function OTP() {
         )}
       </p>
 
-      {currentOtp && (
+      {currentOtp && timer > 0 && (
         <div className="otp-inline-toast">
           <span className="otp-inline-message">
-            <h4>🎯 Reviewer Friendly Mode</h4>
-            Because great products shouldn't require opening the server console.
-            OTP: <strong>{currentOtp}</strong>
+            <h4>😅 F12 wasn't invited today.</h4>
+            Life is short.Deadlines are shorter.<br></br>
+            <strong>OTP: {currentOtp}</strong>
           </span>
         </div>
       )}

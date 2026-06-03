@@ -88,10 +88,16 @@
 }
 
 .otp-inline-message {
-    font-size: 13px;
+    font-size: 14px;
     color: rgba(17, 22, 82, 0.9);
+    margin-top: 0 !important;
     line-height: 1.4;
     font-weight: 500;
+}
+
+.otp-inline-message h4 {
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
 }
 
 .otp-inline-message strong {
