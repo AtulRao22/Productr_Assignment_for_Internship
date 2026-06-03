@@ -19,12 +19,16 @@ function ProductCard({ product, onStatusToggle, onDelete }) {
           alt={product.productName}
           className="product-card-image"
         />
-        <div className="carousel-dots">
-          <div className="dot active"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-        </div>
+        {((product.totalImages !== undefined ? product.totalImages : (product.images?.length || 1)) > 1) && (
+          <div className="carousel-dots">
+            {Array.from({ length: product.totalImages || (product.images?.length || 2) }).map((_, idx) => (
+              <div
+                key={idx}
+                className={`dot ${idx === 0 ? "active" : ""}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       <h3 className="product-title">{product.productName}</h3>
@@ -45,20 +49,20 @@ function ProductCard({ product, onStatusToggle, onDelete }) {
         >
           {product.status === "published" ? "Unpublish" : "Publish"}
         </button>
-        
-        <button 
-          className="btn-card-edit" 
+
+        <button
+          className="btn-card-edit"
           onClick={() => window.location.href = `/edit-product/${product._id}`}
         >
           Edit
         </button>
-        
-        <button 
-          className="btn-card-delete" 
-          onClick={() => onDelete(product._id)}
+
+        <button
+          className="btn-card-delete"
+          onClick={() => onDelete(product)}
           title="Delete Product"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(212, 212, 212, 1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="3 6 5 6 21 6"></polyline>
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
             <line x1="10" y1="11" x2="10" y2="17"></line>

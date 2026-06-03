@@ -2,6 +2,8 @@
     background-color: white;
     border: 1px solid rgba(220, 223, 227, 1);
     border-radius: 12px;
+    height: 442px;
+    width: 350px;
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -15,12 +17,11 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Image Container */
 .product-image-container {
-    background-color: #fafbfc;
+    background-color: rgba(248, 249, 251, 1);
+
     border-radius: 8px;
-    padding: 10px;
-    height: 180px;
+    height: 170px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,32 +36,39 @@
     object-fit: contain;
 }
 
-/* Carousel dots under image */
 .carousel-dots {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    gap: 4px;
-    margin-top: 8px;
-    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    background-color: #ffffff;
+    padding: 5px 8px;
+    border-radius: 20px;
+    border: 1px solid rgba(220, 223, 227, 0.8);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+    z-index: 5;
 }
 
 .dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background-color: rgba(220, 223, 227, 1);
+    background-color: #D0D5DD;
+    transition: background-color 0.2s ease;
 }
 
 .dot.active {
-    background-color: #FF4B4B;
-    /* Figma Active Carousel Red color */
+    background-color: #FF5A3C;
 }
 
-/* Product Info */
 .product-title {
     font-size: 14px;
     font-weight: 600;
-    color: rgba(52, 64, 84, 1);
-    margin: 4px 0 4px 0;
+    color: rgba(0, 0, 0, 1);
+    margin: 2px 0 2px 0;
 }
 
 .product-details-list {
@@ -72,28 +80,27 @@
 .product-details-row {
     display: flex;
     justify-content: space-between;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.4;
 }
 
 .product-details-label {
     color: rgba(152, 162, 179, 1);
-    /* Figma Label color */
+    font-size: 14px;
     font-weight: 400;
 }
 
 .product-details-value {
     color: rgba(52, 64, 84, 1);
-    /* Figma Value color */
+    font-size: 14px;
     font-weight: 500;
     text-align: right;
 }
 
-/* Action Buttons */
 .product-actions {
     display: flex;
-    gap: 8px;
-    margin-top: 8px;
+    gap: 10px;
+    margin-top: 5px;
 }
 
 .product-actions button {
@@ -101,14 +108,20 @@
     align-items: center;
     justify-content: center;
     height: 32px;
-    /* Figma button height */
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 500;
+    color: rgba(255, 255, 255, 1);
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
     outline: none;
     box-sizing: border-box;
+}
+
+.btn-card-edit {
+    color: rgba(52, 64, 84, 1) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
 }
 
 .btn-publish-toggle {
@@ -117,22 +130,22 @@
     color: white;
 }
 
-/* Bright Green Unpublish Button */
 .btn-publish-toggle.published {
-    background: #32BA73;
+    background: linear-gradient(180deg, #52D407 13.75%, #37C100 135%);
+
 }
 
 .btn-publish-toggle.published:hover {
-    background: #289a5e;
+    background: linear-gradient(180deg, #52D407 13.75%, #37C100 135%);
+
 }
 
-/* Deep Blue Publish Button */
 .btn-publish-toggle.unpublished {
-    background: #000FB4;
+    background: linear-gradient(180deg, #000FB4 13.75%, #4050FF 135%);
 }
 
 .btn-publish-toggle.unpublished:hover {
-    background: #000b80;
+    background: linear-gradient(180deg, #000FB4 13.75%, #4050FF 135%);
 }
 
 .btn-card-edit {
@@ -150,11 +163,12 @@
 .btn-card-delete {
     width: 32px;
     background-color: white;
-    border: 1px solid rgba(220, 223, 227, 1);
-    color: #ef4444;
+    border: 1px solid rgba(212, 212, 212, 1);
+    color: rgba(152, 162, 179, 1);
+
 }
 
 .btn-card-delete:hover {
-    background-color: #fef2f2;
-    border-color: #ef4444;
+    background-color: white;
+    border-color: rgba(17, 22, 82, 0.4);
 }

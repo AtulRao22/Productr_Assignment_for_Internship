@@ -4,17 +4,21 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
 import ProductCard from "../components/ProductCard";
+import Toast from "../components/Toast";
+import DeleteModal from "../components/DeleteModal";
 import "./Product.css";
 
 function Products() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      // Fetch all products (no status filter) for the main Products page
+      
       const res = await API.get("/products");
       setProducts(res.data.data);
     } catch (error) {
@@ -28,16 +32,23 @@ function Products() {
     try {
       const newStatus = currentStatus === "published" ? "unpublished" : "published";
       await API.put(`/products/${id}`, { status: newStatus });
+      setToast({ message: "Product updated Successfully" });
       fetchProducts();
     } catch (error) {
       console.error("Failed to update status:", error);
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
+  const handleDelete = (product) => {
+    setProductToDelete({ id: product._id, name: product.productName });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
     try {
-      await API.delete(`/products/${id}`);
+      await API.delete(`/products/${productToDelete.id}`);
+      setToast({ message: "Product deleted Successfully" });
+      setProductToDelete(null);
       fetchProducts();
     } catch (error) {
       console.error("Failed to delete product:", error);
@@ -50,6 +61,16 @@ function Products() {
 
   return (
     <div className="products-layout">
+      {toast && (
+        <Toast message={toast.message} onClose={() => setToast(null)} />
+      )}
+      {productToDelete && (
+        <DeleteModal
+          productName={productToDelete.name}
+          onConfirm={handleConfirmDelete}
+          onClose={() => setProductToDelete(null)}
+        />
+      )}
       <Sidebar />
 
       <div className="products-content">

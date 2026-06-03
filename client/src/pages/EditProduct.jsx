@@ -10,7 +10,6 @@ function EditProduct() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  // Form input states
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
   const [quantityStock, setQuantityStock] = useState("");
@@ -19,12 +18,10 @@ function EditProduct() {
   const [brandName, setBrandName] = useState("");
   const [exchangeEligible, setExchangeEligible] = useState("Yes");
   const [images, setImages] = useState([]);
-  
-  // Validation errors & loading states
+
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true);
 
-  // Fetch the existing product details on load
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -78,7 +75,7 @@ function EditProduct() {
   };
 
   const handleUpdate = async () => {
-    // Form validations
+    
     const newErrors = {};
     if (!productName.trim()) {
       newErrors.productName = "Please enter product name";
@@ -165,7 +162,7 @@ function EditProduct() {
         </div>
       </div>
 
-      {/* Edit Modal Overlaid */}
+      {}
       <div className="add-product-overlay">
         <div className="add-product-modal">
           
@@ -175,7 +172,7 @@ function EditProduct() {
           </div>
 
           <div className="modal-body">
-            {/* Product Name */}
+            {}
             <div className="form-group">
               <label>Product Name</label>
               <input
@@ -191,7 +188,7 @@ function EditProduct() {
               {errors.productName && <p className="error-text">{errors.productName}</p>}
             </div>
 
-            {/* Product Type */}
+            {}
             <div className="form-group">
               <label>Product Type</label>
               <select
@@ -212,7 +209,7 @@ function EditProduct() {
               {errors.productType && <p className="error-text">{errors.productType}</p>}
             </div>
 
-            {/* Quantity Stock */}
+            {}
             <div className="form-group">
               <label>Quantity Stock</label>
               <input
@@ -228,7 +225,7 @@ function EditProduct() {
               {errors.quantityStock && <p className="error-text">{errors.quantityStock}</p>}
             </div>
 
-            {/* MRP */}
+            {}
             <div className="form-group">
               <label>MRP</label>
               <input
@@ -244,7 +241,7 @@ function EditProduct() {
               {errors.mrp && <p className="error-text">{errors.mrp}</p>}
             </div>
 
-            {/* Selling Price */}
+            {}
             <div className="form-group">
               <label>Selling Price</label>
               <input
@@ -260,7 +257,7 @@ function EditProduct() {
               {errors.sellingPrice && <p className="error-text">{errors.sellingPrice}</p>}
             </div>
 
-            {/* Brand Name */}
+            {}
             <div className="form-group">
               <label>Brand Name</label>
               <input
@@ -276,7 +273,7 @@ function EditProduct() {
               {errors.brandName && <p className="error-text">{errors.brandName}</p>}
             </div>
 
-            {/* Upload Product Images */}
+            {}
             <div className="form-group">
               <div className="upload-label-row">
                 <label>Upload Product Images</label>
@@ -325,7 +322,7 @@ function EditProduct() {
               {errors.images && <p className="error-text">{errors.images}</p>}
             </div>
 
-            {/* Exchange Eligibility */}
+            {}
             <div className="form-group">
               <label>Exchange or return eligibility</label>
               <select

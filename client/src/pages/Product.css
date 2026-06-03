@@ -21,7 +21,7 @@ body,
 }
 
 .products-main {
-    padding: 12px;
+    padding: 12px 28px 0 28px;
     box-sizing: border-box;
 }
 
@@ -147,16 +147,17 @@ body,
 
 .products-header-title {
     font-size: 20px;
-    font-weight: 550;
+    font-weight: 600;
     color: rgba(52, 64, 84, 1);
+
     margin: 0;
 }
 
 .btn-header-add {
     background: none;
     border: none;
-    color: #64748b;
-    font-size: 14px;
+    color: rgba(52, 64, 84, 1);
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     display: flex;

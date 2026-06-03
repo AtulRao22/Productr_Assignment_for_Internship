@@ -1,14 +1,29 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
 import ProductCard from "../components/ProductCard";
+import Toast from "../components/Toast";
+import DeleteModal from "../components/DeleteModal";
 import "./Product.css";
 
 function Home() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("published");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [productToDelete, setProductToDelete] = useState(null);
+
+  useEffect(() => {
+    if (location.state?.toastMessage) {
+      setToast({ message: location.state.toastMessage });
+      
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
 
   const fetchProducts = async () => {
     try {
@@ -26,16 +41,23 @@ function Home() {
     try {
       const newStatus = currentStatus === "published" ? "unpublished" : "published";
       await API.put(`/products/${id}`, { status: newStatus });
+      setToast({ message: "Product updated Successfully" });
       fetchProducts();
     } catch (error) {
       console.error("Failed to update status:", error);
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this product?")) return;
+  const handleDelete = (product) => {
+    setProductToDelete({ id: product._id, name: product.productName });
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!productToDelete) return;
     try {
-      await API.delete(`/products/${id}`);
+      await API.delete(`/products/${productToDelete.id}`);
+      setToast({ message: "Product deleted Successfully" });
+      setProductToDelete(null);
       fetchProducts();
     } catch (error) {
       console.error("Failed to delete product:", error);
@@ -48,13 +70,23 @@ function Home() {
 
   return (
     <div className="products-layout">
+      {toast && (
+        <Toast message={toast.message} onClose={() => setToast(null)} />
+      )}
+      {productToDelete && (
+        <DeleteModal
+          productName={productToDelete.name}
+          onConfirm={handleConfirmDelete}
+          onClose={() => setProductToDelete(null)}
+        />
+      )}
       <Sidebar />
 
       <div className="products-content">
         <Navbar title="Home" />
 
         <div className="products-main">
-          {/* Tab Navigation */}
+          {}
           <div className="tabs-container">
             <button
               onClick={() => setActiveTab("published")}
@@ -71,7 +103,7 @@ function Home() {
             </button>
           </div>
 
-          {/* Loading state */}
+          {}
           {loading && <h3 className="loading-text">Loading products...</h3>}
 
           {!loading && products.length === 0 && (

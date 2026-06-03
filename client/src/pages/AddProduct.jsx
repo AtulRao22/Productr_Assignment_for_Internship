@@ -9,7 +9,6 @@ function AddProduct() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
 
-  // Simple state fields for the form
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
   const [quantityStock, setQuantityStock] = useState("");
@@ -19,15 +18,12 @@ function AddProduct() {
   const [exchangeEligible, setExchangeEligible] = useState("Yes");
   const [images, setImages] = useState([]);
 
-  // Validation errors
   const [errors, setErrors] = useState({});
 
-  // Helper to trigger file browse click
   const triggerBrowse = () => {
     fileInputRef.current.click();
   };
 
-  // Convert uploaded image files to Base64 strings for storing
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
 
@@ -40,19 +36,16 @@ function AddProduct() {
     });
   };
 
-  // Delete image thumbnail
   const removeImage = (indexToRemove) => {
     setImages((prev) => prev.filter((_, idx) => idx !== indexToRemove));
   };
 
-  // Close modal and go back to home page
   const handleClose = () => {
     navigate("/home");
   };
 
-  // Submit and create the product
   const handleCreate = async () => {
-    // Basic validation checks
+    
     const newErrors = {};
     if (!productName.trim()) {
       newErrors.productName = "Please enter product name";
@@ -84,7 +77,7 @@ function AddProduct() {
     }
 
     try {
-      // Setup payload matching backend model schema
+      
       const payload = {
         productName,
         productType,
@@ -92,9 +85,9 @@ function AddProduct() {
         mrp: Number(mrp),
         sellingPrice: Number(sellingPrice),
         brandName,
-        productImage: images[0], // Pass first base64 string
+        productImage: images[0], 
         exchangeEligible: exchangeEligible === "Yes",
-        status: "published" // Auto-publish new creations
+        status: "published" 
       };
 
       await API.post("/products", payload);
@@ -107,7 +100,7 @@ function AddProduct() {
 
   return (
     <div className="products-layout" style={{ position: "relative" }}>
-      {/* Background Page Content */}
+      {}
       <Sidebar />
       <div className="products-content">
         <Navbar title="Products" />
@@ -128,7 +121,7 @@ function AddProduct() {
         </div>
       </div>
 
-      {/* Modal Dialog Box */}
+      {}
       <div className="add-product-overlay">
         <div className="add-product-modal">
 
@@ -138,7 +131,7 @@ function AddProduct() {
           </div>
 
           <div className="modal-body">
-            {/* Product Name */}
+            {}
             <div className="form-group">
               <label>Product Name</label>
               <input
@@ -154,7 +147,7 @@ function AddProduct() {
               {errors.productName && <p className="error-text">{errors.productName}</p>}
             </div>
 
-            {/* Product Type */}
+            {}
             <div className="form-group">
               <label>Product Type</label>
               <select
@@ -175,7 +168,7 @@ function AddProduct() {
               {errors.productType && <p className="error-text">{errors.productType}</p>}
             </div>
 
-            {/* Quantity Stock */}
+            {}
             <div className="form-group">
               <label>Quantity Stock</label>
               <input
@@ -191,7 +184,7 @@ function AddProduct() {
               {errors.quantityStock && <p className="error-text">{errors.quantityStock}</p>}
             </div>
 
-            {/* MRP */}
+            {}
             <div className="form-group">
               <label>MRP</label>
               <input
@@ -207,7 +200,7 @@ function AddProduct() {
               {errors.mrp && <p className="error-text">{errors.mrp}</p>}
             </div>
 
-            {/* Selling Price */}
+            {}
             <div className="form-group">
               <label>Selling Price</label>
               <input
@@ -223,7 +216,7 @@ function AddProduct() {
               {errors.sellingPrice && <p className="error-text">{errors.sellingPrice}</p>}
             </div>
 
-            {/* Brand Name */}
+            {}
             <div className="form-group">
               <label>Brand Name</label>
               <input
@@ -239,7 +232,7 @@ function AddProduct() {
               {errors.brandName && <p className="error-text">{errors.brandName}</p>}
             </div>
 
-            {/* Upload Product Images */}
+            {}
             <div className="form-group">
               <div className="upload-label-row">
                 <label>Upload Product Images</label>
@@ -288,7 +281,7 @@ function AddProduct() {
               {errors.images && <p className="error-text">{errors.images}</p>}
             </div>
 
-            {/* Exchange Eligibility */}
+            {}
             <div className="form-group">
               <label>Exchange or return eligibility</label>
               <select
