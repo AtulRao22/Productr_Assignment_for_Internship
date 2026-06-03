@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import API from "../services/api";
 import ProductCard from "../components/ProductCard";
+import Select from "../components/Select";
 import "./AddProduct.css";
 
 function AddProduct() {
@@ -25,25 +26,6 @@ function AddProduct() {
 
   const [productName, setProductName] = useState("");
   const [productType, setProductType] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const [exchangeDropdownOpen, setExchangeDropdownOpen] = useState(false);
-  const exchangeDropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-      if (exchangeDropdownRef.current && !exchangeDropdownRef.current.contains(event.target)) {
-        setExchangeDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const [quantityStock, setQuantityStock] = useState("");
   const [mrp, setMrp] = useState("");
@@ -107,7 +89,7 @@ function AddProduct() {
   };
 
   const handleClose = () => {
-    navigate("/home");
+    navigate("/products");
   };
 
   const handleCreate = async () => {
@@ -236,48 +218,18 @@ function AddProduct() {
             </div>
 
             { }
-            <div className="form-group" ref={dropdownRef}>
+            <div className="form-group">
               <label>Product Type</label>
-              <div className="custom-select-container">
-                <div
-                  className={`custom-select-trigger ${dropdownOpen ? "open" : ""} ${errors.productType ? "error-border" : ""}`}
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                >
-                  <span className={productType ? "selected-value" : "placeholder"}>
-                    {productType || "Select product type"}
-                  </span>
-                  <svg
-                    className={`custom-select-caret ${dropdownOpen ? "open" : ""}`}
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#64748b"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
-                {dropdownOpen && (
-                  <div className="custom-select-options">
-                    {["Foods", "Electronics", "Clothes", "Beauty Products", "Others"].map((option) => (
-                      <div
-                        key={option}
-                        className={`custom-select-option ${productType === option ? "selected" : ""}`}
-                        onClick={() => {
-                          setProductType(option);
-                          setDropdownOpen(false);
-                          setErrors((prev) => ({ ...prev, productType: "" }));
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Select
+                value={productType}
+                onChange={(val) => {
+                  setProductType(val);
+                  setErrors((prev) => ({ ...prev, productType: "" }));
+                }}
+                options={["Foods", "Electronics", "Clothes", "Beauty Products", "Others"]}
+                placeholder="Select product type"
+                error={errors.productType}
+              />
               {errors.productType && <p className="error-text">{errors.productType}</p>}
             </div>
 
@@ -394,47 +346,13 @@ function AddProduct() {
             </div>
 
             { }
-            <div className="form-group" ref={exchangeDropdownRef}>
+            <div className="form-group">
               <label>Exchange or return eligibility</label>
-              <div className="custom-select-container">
-                <div
-                  className={`custom-select-trigger ${exchangeDropdownOpen ? "open" : ""}`}
-                  onClick={() => setExchangeDropdownOpen(!exchangeDropdownOpen)}
-                >
-                  <span className="selected-value">
-                    {exchangeEligible}
-                  </span>
-                  <svg
-                    className={`custom-select-caret ${exchangeDropdownOpen ? "open" : ""}`}
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#64748b"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
-                </div>
-                {exchangeDropdownOpen && (
-                  <div className="custom-select-options">
-                    {["Yes", "No"].map((option) => (
-                      <div
-                        key={option}
-                        className={`custom-select-option ${exchangeEligible === option ? "selected" : ""}`}
-                        onClick={() => {
-                          setExchangeEligible(option);
-                          setExchangeDropdownOpen(false);
-                        }}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <Select
+                value={exchangeEligible}
+                onChange={setExchangeEligible}
+                options={["Yes", "No"]}
+              />
             </div>
           </div>
 
