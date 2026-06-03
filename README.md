@@ -2,8 +2,7 @@
 
 Productr is a high-performance, modern full-stack product management system. It features a passwordless OTP authentication mechanism, dynamic dashboard list filters, responsive image compression previews, and a supercharged loading state optimized using the Stale-While-Revalidate (SWR) caching pattern.
 
-🔗 **Live Application Link:** [https://productr-by-atul.vercel.app/home](https://productr-by-atul.vercel.app)  
-⚙️ **Backend Service Link:** [productr-assignment-for-internship.onrender.com](https://productr-assignment-for-internship.onrender.com)
+🔗 **Live Application Link:** [https://productr-by-atul.vercel.app](https://productr-by-atul.vercel.app)  
 
 ---
 
