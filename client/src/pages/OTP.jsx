@@ -140,7 +140,7 @@ function OTP() {
         <div className="otp-inline-toast">
           <span className="otp-inline-message">
             <h4>😅 F12 wasn't invited today.</h4>
-            Life is short.Deadlines are shorter.<br></br>
+            Life is short.<br></br>Server logs are long.<br></br>
             <strong>OTP: {currentOtp}</strong>
           </span>
         </div>
