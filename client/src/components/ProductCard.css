@@ -2,7 +2,7 @@
     background-color: white;
     border: 1px solid rgba(220, 223, 227, 1);
     border-radius: 12px;
-    height: 442px;
+    height: 462px;
     width: 100%;
     max-width: 350px;
     padding: 12px;
@@ -175,7 +175,7 @@
     border-color: rgba(17, 22, 82, 0.4);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 468px) {
     .product-card {
         height: 460px;
     }
