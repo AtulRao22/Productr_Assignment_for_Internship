@@ -57,6 +57,11 @@ function Products() {
 
   useEffect(() => {
     fetchProducts();
+    const msg = sessionStorage.getItem("toastMessage");
+    if (msg) {
+      setToast({ message: msg });
+      sessionStorage.removeItem("toastMessage");
+    }
   }, []);
 
   return (

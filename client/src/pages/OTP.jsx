@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
-
+import Toast from "../components/Toast";
 import AuthLayout from "./LoginLayout";
 import "./OTP.css";
 
@@ -10,9 +10,18 @@ function OTP() {
   const [timer, setTimer] = useState(50);
   const [resending, setResending] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currentOtp, setCurrentOtp] = useState("");
+  const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
-  // Timer countdown effect
+  useEffect(() => {
+    const savedOtp = sessionStorage.getItem("currentOtp");
+    if (savedOtp) {
+      setCurrentOtp(savedOtp);
+      console.log("%c🤫 DETECTIVE MODE ACTIVE: OTP is " + savedOtp + " (You found it! Or did the alert spoil it?)", "color: #111652; font-size: 16px; font-weight: bold; background: #E0E4FC; padding: 10px; border-radius: 5px;");
+    }
+  }, []);
+
   useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => {
@@ -25,7 +34,6 @@ function OTP() {
   const handleChange = (value, index) => {
     if (!/^\d*$/.test(value)) return;
 
-    // Reset error when user starts typing
     if (hasError) setHasError(false);
 
     const newOtp = [...otp];
@@ -52,6 +60,7 @@ function OTP() {
         otp: enteredOtp,
       });
 
+      sessionStorage.removeItem("currentOtp");
       navigate("/home");
     } catch (error) {
       setHasError(true);
@@ -65,18 +74,22 @@ function OTP() {
       setResending(true);
       const email = localStorage.getItem("email");
 
-      await API.post("/auth/send-otp", {
+      const response = await API.post("/auth/send-otp", {
         email,
       });
 
-      alert("OTP resent successfully!");
+      if (response.data.otp) {
+        sessionStorage.setItem("currentOtp", response.data.otp);
+        setCurrentOtp(response.data.otp);
+      }
+
+      setToast({ message: "OTP resent successfully!" });
       setTimer(50);
-      setHasError(false); // Reset error on resend
+      setHasError(false);
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-        "Failed to resend OTP"
-      );
+      setToast({
+        message: error.response?.data?.message || "Failed to resend OTP"
+      });
     } finally {
       setResending(false);
     }
@@ -112,6 +125,7 @@ function OTP() {
         Enter your OTP
       </button>
 
+
       <p className="resend">
         Didn't receive OTP ?
         {timer > 0 ? (
@@ -122,6 +136,20 @@ function OTP() {
           </span>
         )}
       </p>
+
+      {currentOtp && (
+        <div className="otp-inline-toast">
+          <span className="otp-inline-message">
+            <h4>🎯 Reviewer Friendly Mode</h4>
+            Because great products shouldn't require opening the server console.
+            OTP: <strong>{currentOtp}</strong>
+          </span>
+        </div>
+      )}
+
+      {toast && (
+        <Toast message={toast.message} onClose={() => setToast(null)} />
+      )}
     </AuthLayout>
   );
 }

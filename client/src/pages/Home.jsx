@@ -18,12 +18,12 @@ function Home() {
   const [productToDelete, setProductToDelete] = useState(null);
 
   useEffect(() => {
-    if (location.state?.toastMessage) {
-      setToast({ message: location.state.toastMessage });
-      
-      navigate(location.pathname, { replace: true, state: {} });
+    const msg = sessionStorage.getItem("toastMessage");
+    if (msg) {
+      setToast({ message: msg });
+      sessionStorage.removeItem("toastMessage");
     }
-  }, [location, navigate]);
+  }, []);
 
   const fetchProducts = async () => {
     try {
